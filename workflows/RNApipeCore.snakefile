@@ -8,7 +8,7 @@ import os
 from utils.namer import namer
 
 ## Read in samplesheet
-samples = pd.read_csv(config["samplesheet"], sep='\t')
+samples = pd.read_csv(config["samplesheet"])
 
 ## Convert all columns to strings
 samples = samples.astype(str)
@@ -24,8 +24,8 @@ samples['sn'] = samples[config['fileNamesFrom']].apply('_'.join, axis=1)
 runName = namer(samples, config['fileNamesFrom'])
 
 ## Write samplesheet with sampleNames to new file
-newSamplesheet = ('output/{name}_RNApipeSamplesheet.txt').format(name = runName)
-samples.to_csv(newSamplesheet, sep="\t", index=False)
+newSamplesheet = ('output/{name}_RNApipeSamplesheet.csv').format(name = runName)
+samples.to_csv(newSamplesheet, index=False)
 
 ## Group by id and extract Read1 & Read2
 read1 = samples.groupby('sn')['Read1'].apply(list).to_dict()
