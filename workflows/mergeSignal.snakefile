@@ -7,7 +7,7 @@ import shutil
 import os
 
 ## Read in samplesheet
-samples = pd.read_csv(config["samplesheet"], sep='\t')
+samples = pd.read_csv(config["samplesheet"])
 
 ## Convert all columns to strings
 samples = samples.astype(str)
