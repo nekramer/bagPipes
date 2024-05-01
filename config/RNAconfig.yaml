@@ -10,12 +10,12 @@ fileNamesFrom: ['Project', 'Cell_Type', 'Genotype', 'Time', 'Bio_Rep', 'Tech_Rep
 mergeBy: ['Project', 'Cell_Type', 'Genotype']
 
 ## Indicate whether to create stranded signal tracks
-stranded: True # False
+stranded: False 
 
 ## Genome-specific reference parameters (choose correct genome build!)
 salmon: '/proj/seq/data/salmon_RNAseq_genomes/hg38_cdna/salmon_index/default'
 hisat2: '/proj/seq/data/hg38_UCSC/Sequence/HISAT2Index/genome'
-gtf: '/proj/seq/data/GRCh38_GENCODE/gencode.v32.primary_assembly.annotation.gtf'
+gtf: ''
 
 ## salmon: '/proj/seq/data/HG19_UCSC/Sequence/SalmonIndex/'
 ## hisat2: '/proj/seq/data/HG19_UCSC/Sequence/HISAT2Index/'

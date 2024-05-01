@@ -51,7 +51,7 @@ rule all:
 		# [expand("output/signal/unstranded/{sampleName}.bw", sampleName=key) for key in samples['sn']],
 		# [expand("output/signal/stranded/{sampleName}_{dir}.bw", sampleName=key, dir=['fwd', 'rev']) for key in samples['sn']],
 		("output/QC/{name}_multiqc_report.html").format(name=runName),
-		("output/quant/{name}_tximport.rds").format(name=runName)
+		("output/quant/{name}_gse.rda").format(name=runName)
 
 rule fastqc:
 	input:
@@ -222,10 +222,10 @@ rule tximport:
 	input:
 		[expand("output/quant/{sampleName}/quant.sf", sampleName=key) for key in samples['sn']]
 	output:
-		("output/quant/{name}_tximport.rds").format(name=runName)
+		("output/quant/{name}_gse.rda").format(name=runName)
 	params:
-		samplesheet = newSamplesheet,
 		gtf = config['gtf'],
+		samplesheet = newSamplesheet,
 		name = runName,
 		version = config['rVers']
 	log:
@@ -236,5 +236,5 @@ rule tximport:
 	shell:
 		"""
 		module load r/{params.version};
-		Rscript workflows/utils/txImporter.R {params.samplesheet} {params.gtf} output/quant {params.name} 1> {log.out} 2> {log.err}
+		Rscript workflows/utils/txImporter.R {params.samplesheet} output/quant {params.name} {params.gtf} 1> {log.out} 2> {log.err}
 		"""
