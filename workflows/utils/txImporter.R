@@ -17,12 +17,13 @@ gtfFile <- args[4] # Optional gtf file to use rather than detected through txime
 ### READ IN ===================================
 ## Read in samplesheet file, name settings
 coldata <- read_csv(samplesheet) |>
-  dplyr::rename(names = sn)
-
-## Find salmon files 
-coldata$files <- file.path(quantDir, samplesheet[, "sn"], "quant.sf")
+  dplyr::rename(names = sn) |> 
+  # Paths to salmon files
+  mutate(files = file.path(quantDir, names, "quant.sf"))
 
 ### RUN ===================================
+
+# Transcript with inferred metadata or gtf 
 if (!is.null(gtfFile)){
 
   ## Make TxDb if necessary
