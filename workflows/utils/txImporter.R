@@ -5,10 +5,13 @@
 ### INITIALIZE ===================================
 ## Load required libraries
 library(tximeta)
+library(GenomicFeatures)
 library(readr)
+library(dplyr)
 library(tximport)
 
-args <- commandArgs(trailingOnly=T)
+args <- commandArgs(trailingOnly = TRUE)
+print(args[4])
 samplesheet <- (args[1]) # samplesheet.csv
 quantDir <- (args[2]) # output/quant/
 runName <- (args[3]) # runName from snakemake
@@ -24,7 +27,7 @@ coldata <- read_csv(samplesheet) |>
 ### RUN ===================================
 
 # Transcript with inferred metadata or gtf 
-if (!is.null(gtfFile)){
+if (is.null(gtfFile)){
 
   ## Make TxDb if necessary
   txdb <- makeTxDbFromGFF(gtfFile, format = "gtf")
